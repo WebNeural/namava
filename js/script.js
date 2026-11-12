@@ -84,7 +84,7 @@ function createHeader(headerData) {
         </header>
     `;
 
-    // بعد از ساخت هدر، event listener ها رو bind کن
+  
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const navMenu = document.getElementById('navMenu');
 
@@ -144,7 +144,7 @@ function initSlider(slides) {
     const prevBtn = document.getElementById('prevSlide');
     const nextBtn = document.getElementById('nextSlide');
 
-    // ساخت اسلایدها با map
+  
     slides.map((slide, index) => {
         const slideEl = createSlideElement(slide);
         container.appendChild(slideEl);
@@ -248,14 +248,13 @@ function stopAutoPlay() {
     }
 }
 
-//  Content Sections 
+
 function loadContent(sections2) {
-    // map روی همه سکشن‌ها
+    
     sections2.map(section => {
         loadSection(section.id, section.items);
     });
 
-    // انیمیشن ورود کارت‌ها
     initScrollAnimation();
 }
 
@@ -265,7 +264,6 @@ function loadSection(containerId, items) {
 
     container.innerHTML = '';
 
-    // map برای ساخت کارت‌ها
     items.map(item => {
         const card = createMovieCard(item);
         container.appendChild(card);
@@ -300,7 +298,6 @@ function createMovieCard(item) {
     return card;
 }
 
-//  Scroll Animation 
 function initScrollAnimation() {
     const observerOptions = {
         threshold: 0.1,
