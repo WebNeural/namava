@@ -1,0 +1,327 @@
+let currentSlide = 0;
+let sliderInterval = null;
+let isSliding = false;
+let totalSlides = 0;
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const data = await fetchData();
+
+    if (!data) {
+        console.error('داده‌ای دریافت نشد');
+        return;
+    }
+
+    createHeader(data.header2);
+    initSearch();
+    initSlider(data.slider2);
+    loadContent(data.sections2);
+});
+
+//  Header 
+function createHeader(headerData) {
+    const root = document.getElementById('header-root');
+    if (!root) return;
+
+    const navItemsHTML = headerData.navItems.map(item => `
+        <a href="${item.href}" class="nav-item ${item.active ? 'active' : ''}">
+            ${item.label}
+        </a>
+    `).join('');
+
+    root.innerHTML = `
+        <header class="header" id="header">
+            <div class="container">
+                <div class="header-content">
+
+                    <div class="header-right">
+                        <div class="logo">
+                            <span class="logo-text">${headerData.logo}</span>
+                        </div>
+                        <nav class="nav-menu" id="navMenu">
+                            ${navItemsHTML}
+                        </nav>
+                    </div>
+
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="منو">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+
+                    <div class="header-left">
+                        <button class="icon-btn search-btn" id="searchBtn" aria-label="جستجو">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </button>
+
+                        <button class="icon-btn" aria-label="شافل">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M32.601 15.2245C32.6075 15.2179 32.6135 15.2107 32.6194 15.2034L32.651 15.1672C32.6556 15.1613 32.6596 15.1553 32.6642 15.1501C32.6688 15.1448 32.6872 15.1211 32.6978 15.1066C32.6978 15.1027 32.703 15.0987 32.7063 15.0954C32.7182 15.0783 32.7307 15.0612 32.7419 15.044C32.7432 15.0424 32.7443 15.0407 32.7452 15.0388C32.8849 14.8293 32.9706 14.5886 32.9948 14.338C32.9948 14.338 32.9948 14.3308 32.9948 14.3275C32.9948 14.3057 32.9981 14.284 32.9994 14.2616C33.0007 14.2392 32.9994 14.2103 32.9994 14.1839C32.9994 14.1576 32.9994 14.1325 32.9994 14.1062C32.9994 14.0798 32.9994 14.0627 32.9948 14.0403C32.9948 14.0364 32.9948 14.0331 32.9948 14.0291C32.9705 13.7786 32.8848 13.5379 32.7452 13.3284L32.7419 13.3231C32.7307 13.306 32.7182 13.2889 32.7063 13.2724L32.6978 13.2605C32.6872 13.2461 32.6754 13.2316 32.6642 13.2177C32.653 13.2039 32.6556 13.2059 32.651 13.2006L32.6194 13.1637L32.601 13.1427C32.5898 13.1301 32.5779 13.1183 32.5661 13.1058L32.5496 13.088L28.9121 9.45316C28.6218 9.16295 28.2281 8.99994 27.8176 9C27.4071 9.00006 27.0135 9.16319 26.7233 9.45349C26.433 9.7438 26.27 10.1375 26.2701 10.548C26.2702 10.9585 26.4333 11.3521 26.7236 11.6424L27.7181 12.6368H27.5995C26.2466 12.6331 24.9063 12.8976 23.6562 13.4151C22.4061 13.9326 21.2711 14.6929 20.3167 15.6519L14.06 21.9087C13.3924 22.5792 12.5985 23.1107 11.7242 23.4724C10.8499 23.8342 9.91253 24.019 8.96634 24.0162H7.54772C7.13724 24.0162 6.74357 24.1792 6.45332 24.4695C6.16306 24.7598 6 25.1534 6 25.5639C6 25.9744 6.16306 26.368 6.45332 26.6583C6.74357 26.9486 7.13724 27.1116 7.54772 27.1116H8.96634C10.3193 27.1154 11.6596 26.8508 12.9096 26.333C14.1597 25.8153 15.2945 25.0546 16.2485 24.0952L22.5052 17.8385C23.1727 17.1678 23.9666 16.6362 24.8409 16.2745C25.7153 15.9127 26.6527 15.728 27.5989 15.731H27.7174L26.7229 16.7261C26.4401 17.0179 26.2834 17.4091 26.2865 17.8154C26.2897 18.2217 26.4525 18.6105 26.7398 18.8978C27.0271 19.1851 27.4159 19.3479 27.8222 19.351C28.2285 19.3542 28.6197 19.1975 28.9115 18.9146L32.5489 15.2778L32.5654 15.2601C32.5779 15.2489 32.5898 15.237 32.601 15.2245Z" fill="white"/>
+                            <path d="M20.3167 24.0992C21.2709 25.0586 22.4059 25.8192 23.656 26.337C24.9061 26.8547 26.2465 27.1194 27.5995 27.1156H27.7181L26.7236 28.1108C26.4408 28.4025 26.284 28.7938 26.2872 29.2001C26.2904 29.6064 26.4532 29.9951 26.7405 30.2824C27.0278 30.5697 27.4165 30.7326 27.8228 30.7357C28.2291 30.7389 28.6204 30.5821 28.9121 30.2993L32.5496 26.6625C32.5858 26.6263 32.6201 26.5881 32.653 26.5486L32.6609 26.538C32.6899 26.5018 32.7175 26.4649 32.7432 26.4261C32.7472 26.4208 32.7505 26.4149 32.7538 26.4096C32.7781 26.3721 32.8005 26.3345 32.8196 26.295L32.8288 26.2772C32.8486 26.2384 32.8677 26.1982 32.8848 26.1567C32.8869 26.152 32.8886 26.1472 32.8901 26.1422C32.9072 26.1001 32.9224 26.0573 32.9355 26.0105C32.9355 26.0072 32.9355 26.0033 32.9355 26C32.948 25.9558 32.9592 25.9104 32.9685 25.8643C32.9685 25.8643 32.9685 25.859 32.9685 25.8564C32.977 25.8103 32.9843 25.7635 32.9889 25.7161V25.7095C32.9935 25.6621 32.9961 25.6147 32.9961 25.566C32.9961 25.5172 32.9961 25.4698 32.9889 25.4224V25.4158C32.9843 25.3684 32.977 25.3216 32.9685 25.2755C32.9685 25.2755 32.9685 25.2702 32.9685 25.2676C32.9592 25.2215 32.948 25.1767 32.9355 25.1319C32.9355 25.1286 32.9355 25.1247 32.9355 25.1214C32.9224 25.0773 32.9072 25.0345 32.8901 24.9897C32.8901 24.9851 32.8868 24.9805 32.8848 24.9752C32.8677 24.9344 32.8493 24.8942 32.8288 24.8547L32.8196 24.8369C32.7985 24.798 32.7762 24.7598 32.7538 24.7223L32.7432 24.7058C32.7175 24.6676 32.6899 24.6301 32.6609 24.5939L32.653 24.5833C32.6201 24.5438 32.5871 24.5056 32.5496 24.4694L28.9121 20.8326C28.621 20.5424 28.2264 20.3797 27.8153 20.3804C27.4042 20.3811 27.0102 20.545 26.72 20.8362C26.4297 21.1274 26.2671 21.5219 26.2678 21.933C26.2684 22.3441 26.4324 22.7381 26.7236 23.0284L27.7181 24.0228H27.5995C26.6533 24.0257 25.716 23.8409 24.8417 23.4791C23.9674 23.1174 23.1735 22.5859 22.5059 21.9153L21.1472 20.556L18.958 22.7452L20.3167 24.0992Z" fill="white"/>
+                            <path d="M16.2485 15.6519C15.2944 14.6926 14.1595 13.9321 12.9096 13.4143C11.6596 12.8966 10.3193 12.6319 8.96634 12.6355H7.54772C7.13724 12.6355 6.74357 12.7986 6.45332 13.0889C6.16306 13.3791 6 13.7728 6 14.1833C6 14.5937 6.16306 14.9874 6.45332 15.2777C6.74357 15.5679 7.13724 15.731 7.54772 15.731H8.96634C9.91254 15.728 10.8499 15.9128 11.7242 16.2746C12.5986 16.6363 13.3925 17.1679 14.06 17.8385L15.4187 19.1972L17.6079 17.008L16.2485 15.6519Z" fill="white"/>
+                        </svg>
+                        </button>
+
+                        <button class="icon-btn" aria-label="موبایل">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19.3333 27.3333H19.3467M14.2667 33.3333H24.4C25.8935 33.3333 26.6402 33.3333 27.2106 33.0427C27.7124 32.787 28.1204 32.3791 28.376 31.8773C28.6667 31.3069 28.6667 30.5601 28.6667 29.0667V10.9333C28.6667 9.43985 28.6667 8.69311 28.376 8.12268C28.1204 7.62092 27.7124 7.21297 27.2106 6.95731C26.6402 6.66666 25.8935 6.66666 24.4 6.66666H14.2667C12.7732 6.66666 12.0265 6.66666 11.456 6.95731C10.9543 7.21297 10.5463 7.62092 10.2906 8.12268C10 8.69311 10 9.43985 10 10.9333V29.0667C10 30.5601 10 31.3069 10.2906 31.8773C10.5463 32.3791 10.9543 32.787 11.456 33.0427C12.0265 33.3333 12.7732 33.3333 14.2667 33.3333ZM20 27.3333C20 27.7015 19.7015 28 19.3333 28C18.9651 28 18.6667 27.7015 18.6667 27.3333C18.6667 26.9651 18.9651 26.6667 19.3333 26.6667C19.7015 26.6667 20 26.9651 20 27.3333Z" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+
+                        <button class="share-btn" aria-label="اشتراک‌گذاری">
+                           
+                            <span>اشتراک‌گذاری</span>
+                        </button>
+
+                        <button class="login-btn">${headerData.loginBtn}</button>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+    `;
+
+    // بعد از ساخت هدر، event listener ها رو bind کن
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navMenu = document.getElementById('navMenu');
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+            }
+        });
+    }
+}
+
+//  Search 
+function initSearch() {
+    const searchBtn = document.getElementById('searchBtn');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const searchClose = document.getElementById('searchClose');
+    const searchInput = document.getElementById('searchInput');
+
+    searchBtn.addEventListener('click', () => {
+        searchOverlay.classList.add('active');
+        setTimeout(() => searchInput.focus(), 100);
+    });
+
+    searchClose.addEventListener('click', () => {
+        searchOverlay.classList.remove('active');
+        searchInput.value = '';
+    });
+
+    searchOverlay.addEventListener('click', (e) => {
+        if (e.target === searchOverlay) {
+            searchOverlay.classList.remove('active');
+            searchInput.value = '';
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            searchOverlay.classList.remove('active');
+            searchInput.value = '';
+        }
+    });
+}
+
+//  Slider 
+function initSlider(slides) {
+    totalSlides = slides.length;
+
+    const container = document.getElementById('sliderContainer');
+    const dotsContainer = document.getElementById('sliderDots');
+    const prevBtn = document.getElementById('prevSlide');
+    const nextBtn = document.getElementById('nextSlide');
+
+    // ساخت اسلایدها با map
+    slides.map((slide, index) => {
+        const slideEl = createSlideElement(slide);
+        container.appendChild(slideEl);
+
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+
+    prevBtn.addEventListener('click', previousSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    startAutoPlay();
+
+    const heroSlider = document.getElementById('heroSlider');
+    heroSlider.addEventListener('mouseenter', stopAutoPlay);
+    heroSlider.addEventListener('mouseleave', startAutoPlay);
+}
+
+function createSlideElement(slide) {
+    const div = document.createElement('div');
+    div.classList.add('slide');
+    div.innerHTML = `
+        <img src="${slide.image}" alt="${slide.title}" class="slide-image">
+        <div class="slide-overlay">
+            <div class="container">
+                <div class="slide-content">
+                    <div class="slide-top-badge">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M8 14l2 2 4-4"/>
+                        </svg>
+                        <span>پردیس نماوا</span>
+                    </div>
+                    <h1 class="slide-title">${slide.title}</h1>
+                    <p class="slide-desc">${slide.description}</p>
+                    <p class="slide-episode">فصل دوم، سریال شوشون، به زودی در نماوا</p>
+                    <div class="slide-meta">
+                        <span>🔥 ${slide.imdb}</span>
+                        <span>⭐ ۷۰٪</span>
+                        <span>⏱ ${slide.duration}</span>
+                        <span>📅 ${slide.year}</span>
+                        <span class="age-badge">+۱۸</span>
+                    </div>
+                    <div class="slide-actions">
+                        <button class="slide-btn primary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            خرید بلیت
+                        </button>
+                        <button class="slide-btn secondary">پیش نمایش</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    return div;
+}
+
+function goToSlide(index) {
+    if (isSliding) return;
+    isSliding = true;
+
+    currentSlide = index;
+    const container = document.getElementById('sliderContainer');
+    const dots = document.querySelectorAll('.dot');
+
+    container.style.transform = `translateX(${currentSlide * 100}%)`;
+
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+    });
+
+    setTimeout(() => { isSliding = false; }, 600);
+}
+
+function nextSlide() {
+    const nextIndex = (currentSlide + 1) % totalSlides;
+    goToSlide(nextIndex);
+}
+
+function previousSlide() {
+    const prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+    goToSlide(prevIndex);
+}
+
+function startAutoPlay() {
+    stopAutoPlay();
+    sliderInterval = setInterval(nextSlide, 5000);
+}
+
+ 
+
+function stopAutoPlay() {
+    if (sliderInterval) {
+        clearInterval(sliderInterval);
+        sliderInterval = null;
+    }
+}
+
+//  Content Sections 
+function loadContent(sections2) {
+    // map روی همه سکشن‌ها
+    sections2.map(section => {
+        loadSection(section.id, section.items);
+    });
+
+    // انیمیشن ورود کارت‌ها
+    initScrollAnimation();
+}
+
+function loadSection(containerId, items) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    // map برای ساخت کارت‌ها
+    items.map(item => {
+        const card = createMovieCard(item);
+        container.appendChild(card);
+    });
+}
+
+function createMovieCard(item) {
+    const card = document.createElement('div');
+    card.classList.add('movie-card');
+
+    card.innerHTML = `
+        <div class="card-image-container">
+            <img src="${item.image}" alt="${item.title}" class="card-image" loading="lazy">
+            <div class="card-exclusive-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                    <path d="M8 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                اختصاصی نماوا
+            </div>
+        </div>
+        <div class="card-info">
+            <div class="card-title">${item.title}</div>
+            <div class="card-subtitle">${item.subtitle || ''}</div>
+        </div>
+    `;
+
+    card.addEventListener('click', () => {
+        console.log('Clicked:', item.title);
+    });
+
+    return card;
+}
+
+//  Scroll Animation 
+function initScrollAnimation() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.content-section').forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(30px)';
+        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(section);
+    });
+}  
+
+

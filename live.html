@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پخش زنده - نماوا</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/live.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!--  Header (از JS ساخته می‌شه)  -->
+    <div id="header-root"></div>
+
+    <!--  Search Overlay  -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-content">
+            <input type="text" class="search-input" placeholder="جستجوی مسابقه، تیم، لیگ..." id="searchInput">
+            <button class="search-close" id="searchClose">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!--  Hero Slider  -->
+    <section class="hero-section">
+        <div class="hero-slider" id="heroSlider">
+            <div class="slider-container" id="sliderContainer">
+                <!-- JS -->
+            </div>
+
+            <div class="slider-controls">
+                <button class="slider-arrow prev" id="prevSlide" aria-label="قبلی">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <button class="slider-arrow next" id="nextSlide" aria-label="بعدی">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="slider-dots" id="sliderDots"></div>
+        </div>
+    </section>
+
+    <!--  Main Content  -->
+    <main class="main-content">
+        <div class="container">
+
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">پخش زنده</h2>
+                    <button class="section-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="cards-row" id="exclusiveRow"></div>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">لیگ قهرمانان اروپا</h2>
+                    <button class="section-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="cards-row" id="iranianRow"></div>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">لیگ برتر انگلیس</h2>
+                    <button class="section-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="cards-row" id="popularRow"></div>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">لیگ اسپانیا</h2>
+                    <button class="section-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="cards-row" id="seriesRow"></div>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">بوندیس لیگا آلمان</h2>
+                    <button class="section-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="cards-row" id="animationRow"></div>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">لیگ عربستان</h2>
+                    <button class="section-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="cards-row" id="actionMoviesRow"></div>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">لیگ امارات</h2>
+                    <button class="section-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="cards-row" id="funRow"></div>
+            </section>
+
+
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">پخش زنده  </h2>
+                    <button class="section-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="cards-row" id="funRow2"></div>
+            </section>
+
+
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">والیبال </h2>
+                    <button class="section-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </button>
+
+                </div>
+                <div class="cards-row" id="funRow3"></div>
+            </section>
+            
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title"> فوتبال ساحلی </h2>
+                    <button class="section-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="cards-row" id="funRow4"></div>
+            </section>
+        
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title"> والیبال ساحلی </h2>
+                    <button class="section-arrow">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="cards-row" id="funRow5"></div>
+            </section>
+        
+        </div>
+    </main>
+
+    <!--  Footer  -->
+    <footer class="main-footer">
+        <div class="top-nav-box">
+            <a href="#">▲ سایر لینک‌ها</a>
+            <a href="#">درباره ما</a>
+            <a href="#">تماس با ما</a>
+            <a href="#">سوالات متداول</a>
+            <a href="#">کارت هدیه</a>
+            <a href="#">خرید اشتراک</a>
+            <a href="#">تماشا در تلویزیون</a>
+            <a href="#">فرصت‌های شغلی</a>
+            <a href="#">اپلیکیشن‌ها</a>
+        </div>
+
+        <div class="download-box">
+            <div class="download-apps">
+                <a href="#" class="small-app-btn more">بیشتر</a>
+                <a href="#" class="small-app-btn">
+                    <img src="https://img.icons8.com/color/48/google-play.png" alt="گوگل پلی"> گوگل پلی
+                </a>
+                <a href="#" class="small-app-btn">
+                    <img src="https://img.icons8.com/color/48/sibche.png" alt="مایکت"> مایکت
+                </a>
+                <a href="#" class="small-app-btn">
+                    <img src="https://img.icons8.com/color/48/cafebazaar.png" alt="بازار"> بازار
+                </a>
+            </div>
+            <div class="namaava-section">
+                <span class="download-text">دانلود اپلیکیشن</span>
+                <div class="namaava-blue">نماوا</div>
+            </div>
+        </div>
+
+        <hr class="footer-line">
+
+        <div class="about-section">
+            <div class="about-text">
+                <h3>درباره ما</h3>
+                <p>سرزمین شگفت‌انگیز سریال‌ها و فیلم‌های پیش‌نمایش و فیلم‌های محبوب شما در اختیار شماست...</p>
+                <p>در این سایت می‌توانید جدیدترین سریال‌ها و فیلم‌های خارجی و ایرانی را با زیرنویس فارسی تماشا کنید.</p>
+                <p>تماما مجموعه‌ای سریع و جامع از دانلود، تماشای آنلاین، پخش زنده... ارائه می‌دهد.</p>
+            </div>
+            <div class="placeholders">
+                <div class="placeholder-box"></div>
+                <div class="placeholder-box"></div>
+            </div>
+        </div>
+
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-telegram-plane"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p class="copyright">خدمات ارائه شده در نماوا دارای مجوز لازم است هر گونه سو استفاده از محتوای نماوا غیر قانونی است</p>
+    </footer>
+
+    <!--  Bottom Nav  -->
+    <nav class="bottom-nav">
+        <a href="#">
+            <i class="fas fa-ellipsis-h"></i>
+            <span>بیشتر</span>
+        </a>
+        <a href="#" class="active">
+            <i class="fas fa-th-large"></i>
+            <span>دسته‌بندی</span>
+        </a>
+        <a href="#">
+            <i class="fas fa-search"></i>
+            <span>جستجو</span>
+        </a>
+        <a href="#">
+            <i class="fas fa-home"></i>
+            <span>خانه</span>
+        </a>
+    </nav>
+
+    <script src="./js/api.js"></script>
+    <script src="./js/script-live.js"></script>
+</body>
+</html>
