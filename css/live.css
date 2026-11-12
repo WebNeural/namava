@@ -51,7 +51,7 @@ body {
 }
 
 
-/* ─── Header ─────────────────────────────────── */
+
 .header {
     position: fixed;
     top: 0;
@@ -182,7 +182,7 @@ body {
     transition: all 0.3s;
 }
 
-/* ─── Search Overlay ─────────────────────────── */
+
 .search-overlay {
     position: fixed;
     top: 0;
@@ -249,7 +249,6 @@ body {
     color: var(--text-primary);
 }
 
-/* ─── Hero / Slider ──────────────────────────── */
 .hero-section {
     position: relative;
 }
@@ -372,7 +371,6 @@ body {
     background: var(--primary-gold);
 }
 
-/* ─── Main Content ───────────────────────────── */
 .main-content {
     padding: 60px 0;
 }
@@ -413,7 +411,6 @@ body {
     color: var(--text-primary);
 }
 
-/* ─── Cards ──────────────────────────────────── */
 .cards-row {
     display: flex;
     gap: 16px;
@@ -490,7 +487,6 @@ body {
     font-weight: 600;
 }
 
-/* ─── Footer ─────────────────────────────────── */
 .main-footer {
     background: #0a0a0a;
     color: #bbb;
@@ -634,10 +630,8 @@ body {
     color: #555;
 }
 
-/* ─── Bottom Nav ─────────────────────────────── */
 .bottom-nav { display: none; }
 
-/* ─── Responsive 1024px ──────────────────────── */
 @media (max-width: 1024px) {
     .header-right { gap: 32px; }
     .nav-menu { gap: 24px; }
@@ -652,7 +646,6 @@ body {
     .top-nav-box { justify-content: center; gap: 1.5rem; }
 }
 
-/* ─── Responsive 798px ───────────────────────── */
 @media (max-width: 798px) {
     body { padding-bottom: 70px; }
     .header-right { gap: 20px; }
@@ -741,7 +734,6 @@ body {
     .slider-dots { bottom: 20px; }
     .movie-card { width: 220px; }
     .section-title { font-size: 18px; }
-    /* icon-btn همیشه نمایش داده میشه */
     .share-btn { display: none; }
 
     .top-nav-box { justify-content: center; gap: 1.4rem 2.2rem; padding: 1.1rem 1.3rem; font-size: 0.95rem; }
@@ -754,7 +746,6 @@ body {
     .footer-social a { font-size: 2.1rem; margin: 0 1.1rem; }
 }
 
-/* ─── Responsive 480px ───────────────────────── */
 @media (max-width: 480px) {
     .container { padding: 0 16px; }
     body { padding-bottom: 70px; }
