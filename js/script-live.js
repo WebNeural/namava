@@ -142,7 +142,7 @@ function initSlider(slides) {
     const prevBtn = document.getElementById('prevSlide');
     const nextBtn = document.getElementById('nextSlide');
 
-    // ساخت اسلایدها با map
+    
     slides.map((slide, index) => {
         const slideEl = createSlideElement(slide);
         container.appendChild(slideEl);
@@ -221,9 +221,9 @@ function stopAutoPlay() {
     }
 }
 
-//  Content Sections 
+
 function loadContent(sections) {
-    // map روی همه سکشن‌ها
+
     sections.map(section => {
         loadSection(section.id, section.items);
     });
@@ -237,8 +237,7 @@ function loadSection(containerId, items) {
 
     container.innerHTML = '';
 
-    // map برای ساخت کارت‌ها
-    items.map(item => {
+items.map(item => {
         const card = createMatchCard(item);
         container.appendChild(card);
     });
@@ -266,7 +265,7 @@ function createMatchCard(item) {
     return card;
 }
 
-//  Scroll Animation 
+
 function initScrollAnimation() {
     const observerOptions = {
         threshold: 0.1,
